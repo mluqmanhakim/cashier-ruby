@@ -1,0 +1,11 @@
+<h1>Store Owners</h1>
+
+<%= link_to 'New Store Owner', new_store_owner_path %>
+
+<ul>
+  <% @store_owners.each do |owner| %>
+    <li><%= owner.email %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Dashboard', root_path %>

@@ -1,0 +1,7 @@
+<h1>POS Dashboard</h1>
+
+<p>Welcome, <%= current_user.email %></p>
+
+<% if current_user.administrator? %>
+  <%= link_to 'Manage Store Owners', store_owners_path %>
+<% end %>
