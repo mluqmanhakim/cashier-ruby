@@ -4,4 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
   enum role: { administrator: 0, store_owner: 1 }
+
+  has_many :menu_items
+  has_many :orders
 end

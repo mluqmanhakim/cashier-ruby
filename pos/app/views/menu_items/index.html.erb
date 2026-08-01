@@ -1,0 +1,11 @@
+<h1>My Menu Items</h1>
+
+<%= link_to 'Add New Menu Item', new_menu_item_path %>
+
+<ul>
+  <% @menu_items.each do |item| %>
+    <li><%= item.name %> - <%= number_to_currency(item.price) %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Dashboard', root_path %>

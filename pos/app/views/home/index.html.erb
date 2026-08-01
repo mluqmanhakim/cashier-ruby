@@ -4,4 +4,41 @@
 
 <% if current_user.administrator? %>
   <%= link_to 'Manage Store Owners', store_owners_path %>
+<% elsif current_user.store_owner? %>
+  <%= link_to 'Manage Menu Items', menu_items_path %>
+
+  <h2>Point of Sale</h2>
+  <% if @menu_items.any? %>
+    <%= form_with url: orders_path, local: true, data: { controller: "pos" } do |f| %>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @menu_items.each do |item| %>
+            <tr>
+              <td><%= item.name %></td>
+              <td><%= number_to_currency(item.price) %></td>
+              <td>
+                <%= f.number_field "quantities[#{item.id}]", value: 0, min: 0, data: { pos_target: "quantity", price: item.price, action: "input->pos#calculateTotal" } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <h3>Total: <span data-pos-target="total">$0.00</span></h3>
+
+      <div class="actions">
+        <br>
+        <%= f.submit "Finish Order" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>You have no menu items yet. Please add some to start selling.</p>
+  <% end %>
 <% end %>

@@ -1,0 +1,31 @@
+<h1>Receipt</h1>
+
+<p>
+  <strong>Order ID:</strong> <%= @order.id %><br>
+  <strong>Date:</strong> <%= @order.created_at.to_fs(:short) %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_items.each do |item| %>
+      <tr>
+        <td><%= item.menu_item.name %></td>
+        <td><%= number_to_currency(item.price) %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.price * item.quantity) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Total: <%= number_to_currency(@order.total) %></h3>
+
+<%= link_to 'Back to POS', root_path %>
