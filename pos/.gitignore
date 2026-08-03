@@ -38,3 +38,8 @@ log/
 db/*.sqlite3
 db/*.sqlite3-*
 coverage/
+coverage/
+test/models/
+test/controllers/
+tmp/
+log/
